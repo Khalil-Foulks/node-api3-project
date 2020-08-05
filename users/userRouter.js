@@ -19,7 +19,7 @@ router.post('/', customMw.validateUser, (req, res) => {
 });
 
 //needs to be fixed: validation is only hitting body.text check
-router.post('/:id/posts', customMw.validatePost, customMw.validateUserId, (req, res) => {
+router.post('/:id/posts', customMw.validateUserId, customMw.validatePost, (req, res) => {
   const body = req.body
 
   Postdb.insert(body)
