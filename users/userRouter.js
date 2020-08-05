@@ -68,12 +68,32 @@ router.get('/:id/posts', customMw.validateUserId, (req, res) => {
     })
 });
 
-router.delete('/:id', (req, res) => {
-  // do your magic!
+router.delete('/:id', customMw.validateUserId, (req, res) => {
+  const id = req.params.id
+
+  Userdb.remove(id)
+    .then(user => {
+      res.status(204).end();
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: error.message });
+    })
 });
 
-router.put('/:id', (req, res) => {
-  // do your magic!
+router.put('/:id', customMw.validateUserId, customMw.validateUser, (req, res) => {
+  const body = req.body
+  const id = req.params.id
+
+  Userdb.update(id, body)
+    .then(user => {
+      res.status(200).json({ body })
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: error.message });
+    })
+
 });
 
 //custom middleware
