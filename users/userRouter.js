@@ -12,12 +12,13 @@ router.post('/', customMw.validateUser, (req, res) => {
     .then(user => {
       res.status(201).json({ user })
     })
-    .catch(err => {
-      console.log(err)
+    .catch(error => {
+      console.log(error)
       res.status(500).json({ error: error.message });
     })
 });
 
+//needs to be fixed: validation is only hitting body.text check
 router.post('/:id/posts', customMw.validatePost, customMw.validateUserId, (req, res) => {
   const body = req.body
 
@@ -25,8 +26,8 @@ router.post('/:id/posts', customMw.validatePost, customMw.validateUserId, (req, 
     .then(post => {
       res.status(201).json({ post })
     })
-    .catch(err => {
-      console.log(err)
+    .catch(error => {
+      console.log(error)
       res.status(500).json({ error: error.message });
     })
 });
@@ -36,8 +37,8 @@ router.get('/', (req, res) => {
     .then(allUsers => {
       res.status(200).json({ allUsers })
     })
-    .catch(err => {
-      console.log(err)
+    .catch(error => {
+      console.log(error)
       res.status(500).json({ error: error.message });
     })
 });
@@ -49,8 +50,8 @@ router.get('/:id', customMw.validateUserId, (req, res) => {
   .then(user => {
     res.status(200).json(user)
   })
-  .catch(err => {
-    console.log(err);
+  .catch(error => {
+    console.log(error);
     res.status(500).json({ error: error.message });
   })
 });
@@ -62,8 +63,8 @@ router.get('/:id/posts', customMw.validateUserId, (req, res) => {
     .then(userPost => {
       res.status(200).json(userPost)
     })
-    .catch(err => {
-      console.log(err);
+    .catch(error => {
+      console.log(error);
       res.status(500).json({ error: error.message });
     })
 });
@@ -75,8 +76,8 @@ router.delete('/:id', customMw.validateUserId, (req, res) => {
     .then(user => {
       res.status(204).end();
     })
-    .catch(err => {
-      console.log(err);
+    .catch(error => {
+      console.log(error);
       res.status(500).json({ error: error.message });
     })
 });
@@ -89,11 +90,10 @@ router.put('/:id', customMw.validateUserId, customMw.validateUser, (req, res) =>
     .then(user => {
       res.status(200).json({ body })
     })
-    .catch(err => {
-      console.log(err);
+    .catch(error => {
+      console.log(error);
       res.status(500).json({ error: error.message });
     })
-
 });
 
 //custom middleware

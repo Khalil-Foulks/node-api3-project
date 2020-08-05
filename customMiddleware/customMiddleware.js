@@ -26,7 +26,7 @@ function validateUserId(req, res, next) {
                 res.status(400).json({ message: "invalid user id" })
             }
         })
-        .catch(err => {
+        .catch(error => {
             console.log(error);
             res.status(500).json({ error: error.message });
         })
@@ -66,7 +66,7 @@ function validatePostId(req, res, next) {
                 res.status(400).json({ message: "invalid post id" })
             }
         })
-        .catch(err => {
+        .catch(error => {
             console.log(error);
             res.status(500).json({ error: error.message });
         })
