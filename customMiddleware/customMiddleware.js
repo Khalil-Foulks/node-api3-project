@@ -7,6 +7,7 @@ module.exports = {
     validateUserId,
     validateUser,
     validatePost,
+    validatePostId,
 }
 
 function logger(req, res, next) {
@@ -52,4 +53,19 @@ function validatePost(req, res, next) {
     } else {
         next();
     }
+}
+
+function validatePostId(req, res, next) {
+    const id = req.params.id
+    Postdb.getById(id)
+        .then(post => {
+            if(post){
+                next();
+            } else {
+                res.status(400).json({ message: "invalid post id" })
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ error: error.message });
+        })
 }
