@@ -1,15 +1,34 @@
 const express = require('express');
 const Userdb = require('../users/userDb')
+const Postdb = require("../posts/postDb")
 const customMw = require('../customMiddleware/customMiddleware') 
 
 const router = express.Router();
 
-router.post('/', (req, res) => {
-  // do your magic!
+router.post('/', customMw.validateUser, (req, res) => {
+  const body = req.body
+
+  Userdb.insert(body) 
+    .then(user => {
+      res.status(201).json({ user })
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({ error: error.message });
+    })
 });
 
-router.post('/:id/posts', (req, res) => {
-  // do your magic!
+router.post('/:id/posts', customMw.validatePost, customMw.validateUserId, (req, res) => {
+  const body = req.body
+
+  Postdb.insert(body)
+    .then(post => {
+      res.status(201).json({ post })
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({ error: error.message });
+    })
 });
 
 router.get('/', (req, res) => {

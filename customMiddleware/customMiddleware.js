@@ -27,6 +27,7 @@ function validateUserId(req, res, next) {
             }
         })
         .catch(err => {
+            console.log(error);
             res.status(500).json({ error: error.message });
         })
 }
@@ -37,7 +38,7 @@ function validateUser(req, res, next) {
     if(!body) {
         res.status(400).json( { message: "missing user data" } )
     } else if(!body.name) {
-        res.status(400).json( { message: "missing required name field" } )
+        res.status(401).json( { message: "missing required name field" } )
     } else {
         next();
     }
@@ -48,7 +49,7 @@ function validatePost(req, res, next) {
 
     if(!body) {
         res.status(400).json( { message: "missing post data" } )
-    } else if(!body.name) {
+    } else if(!body.text) {
         res.status(400).json( { message: "missing required text field" } )
     } else {
         next();
@@ -66,6 +67,7 @@ function validatePostId(req, res, next) {
             }
         })
         .catch(err => {
+            console.log(error);
             res.status(500).json({ error: error.message });
         })
 }
