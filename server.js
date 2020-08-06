@@ -15,7 +15,7 @@ server.use(express.json());
 server.use(customMw.logger);
 
 server.get('/', (req, res) => {
-  res.send(`<h2> Hello ${name} Let's write some middleware!</h2>`);
+  res.send(`<h2> Hello ${name}, Let's write some middleware!</h2>`);
 });
 
 server.use("/api/users", userRouter)
